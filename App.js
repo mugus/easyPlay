@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { Text, View, StyleSheet, Button } from 'react-native';
+import { Audio } from 'expo-av';
+import { Provider } from 'react-redux';
+
+import { configureStore } from './redux/configureStore';
+import ReduxLearn from './screens/ReduxLearn';
 
 export default function App() {
+  // const [sound, setSound] = React.useState();
+
+
+
+
+  // async function playSound() {
+  //   console.log('Loading Sound');
+  //   const { sound } = await Audio.Sound.createAsync(
+  //      require('./assets/Katapilla.mp3')
+  //   );
+  //   setSound(sound);
+
+  //   console.log('Playing Sound');
+  //   await sound.playAsync(); }
+
+  // React.useEffect(() => {
+  //   return sound
+  //     ? () => {
+  //         console.log('Unloading Sound');
+  //         sound.unloadAsync(); }
+  //     : undefined;
+  // }, [sound]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={configureStore}>
+      <ReduxLearn />
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
