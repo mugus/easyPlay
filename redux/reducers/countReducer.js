@@ -1,7 +1,9 @@
-import { COUNT_INCRESE, COUNT_DECRESE, GET_PRODUCTS,GET_PRODUCTS_SUCCESS, GET_PRODUCTS_FAIL } from '../constants';
+import { COUNT_INCRESE, COUNT_DECRESE, GET_PRODUCTS,GET_PRODUCTS_SUCCESS, GET_PRODUCTS_FAIL, LIKE_PRODUCT, UNLIKE_PRODUCT } from '../constants';
 
 const initialState = {
     count: 0,
+    like: 0,
+    unlike: 0,
     products: []
 };
 
@@ -21,8 +23,31 @@ export const getProductsReducer = (state = initialState,action) => {
       default:
         return state;
     }
-  };
+};
 
+export const likeProductReducer = (state = initialState,action) => {
+    switch (action.type) {
+      case LIKE_PRODUCT:
+        return {
+            ...state,
+            like: state.like + 1,
+        };
+      default:
+        return state;
+    }
+};
+
+export const unlikeProductReducer = (state = initialState,action) => {
+    switch (action.type) {
+      case UNLIKE_PRODUCT:
+        return {
+            ...state,
+            unlike: state.unlike + 1,
+        };  
+      default:
+        return state;
+    }
+};
 
 
 const countReducer = (state = initialState, action) => {

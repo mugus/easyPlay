@@ -5,3 +5,7 @@ export const COUNT_DECRESE = 'COUNT_DECRESE'
 export const GET_PRODUCTS = 'GET_PRODUCTS'
 export const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS'
 export const GET_PRODUCTS_FAIL = 'GET_PRODUCTS_FAIL'
+
+// Like on Product
+export const LIKE_PRODUCT = 'LIKE_PRODUCT'
+export const UNLIKE_PRODUCT = 'UNLIKE_PRODUCT'

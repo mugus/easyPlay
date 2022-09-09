@@ -1,4 +1,4 @@
-import { COUNT_INCRESE, COUNT_DECRESE, GET_PRODUCTS,GET_PRODUCTS_SUCCESS, GET_PRODUCTS_FAIL } from '../constants';
+import { COUNT_INCRESE, COUNT_DECRESE, GET_PRODUCTS,GET_PRODUCTS_SUCCESS, GET_PRODUCTS_FAIL, LIKE_PRODUCT, UNLIKE_PRODUCT } from '../constants';
 import axios from 'axios';
 
 export const GetProducts = () => async (dispatch) => {
@@ -13,6 +13,18 @@ export const GetProducts = () => async (dispatch) => {
     }
 }
 
+
+export const LikeProduct = () => {
+    return{
+        type: LIKE_PRODUCT
+    }
+}
+
+export const UnlikeProduct = () => {
+    return{
+        type: UNLIKE_PRODUCT
+    }
+}
 
 export const increment = () => {
     return {

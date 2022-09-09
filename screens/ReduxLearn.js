@@ -2,16 +2,19 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Button, ScrollView } from 'react-native';
 import { Audio } from 'expo-av';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, GetProducts } from '../redux/actions/counts';
+import { increment, decrement, GetProducts, LikeProduct, UnlikeProduct } from '../redux/actions/counts';
 
 export default function ReduxLearn() {
     const dispatch = useDispatch();
     const [products, setProducts] = React.useState([]);
     const counter = useSelector((store) => store.count.count);
     const product = useSelector((state) => state.products);
+    const like = useSelector((state) => state.like)
+    const unlike = useSelector((state) => state.unlike)
 
     const [likes, setLikes] = React.useState(0);
     const [unlikes, setUnlikes] = React.useState(0);
+
     const handleIncrement = () => {
         dispatch(increment());
     };
@@ -19,6 +22,14 @@ export default function ReduxLearn() {
     const handleDecrement = () => {
         dispatch(decrement());
     };
+
+    const handleLike = ()=> {
+        dispatch(LikeProduct());
+    }
+    const handleUnlike = ()=> {
+        dispatch(UnlikeProduct());
+    }
+
 
     React.useEffect(()=> {
         dispatch(GetProducts())
@@ -54,15 +65,15 @@ export default function ReduxLearn() {
                         <View key={index} style={{flexDirection: 'column',padding:10, width: '100%', borderRadius: 10, backgroundColor: '#ffe' }}>
                             <Text style={{fontSize: 15, fontWeight: '600',padding:5}}>{product.name}</Text>
                             <View style={{flexDirection: 'row'}} >
-                                <Text style={{fontSize: 12, fontWeight: '600',padding:5}}>Likes: {likes}</Text>
-                                <Text style={{fontSize: 12, fontWeight: '600',padding:5}}>Unlikes: {unlikes}</Text>
+                                <Text style={{fontSize: 12, fontWeight: '600',padding:5}}>Likes: {like}</Text>
+                                <Text style={{fontSize: 12, fontWeight: '600',padding:5}}>Unlikes: {unlike}</Text>
                             </View>
                             
                             <View style={{flexDirection: 'row'}} >
                                 
-                                <Button title='Like'/>
+                                <Button title='Like' onPress={handleLike}/>
                                 <Text>        </Text>
-                                <Button title='Unlike' />
+                                <Button title='Unlike' onPress={handleUnlike}/>
                             </View>
                         </View>
                     </>

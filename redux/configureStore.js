@@ -3,11 +3,13 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import countReducer from './reducers/countReducer';
-import { getProductsReducer } from './reducers/countReducer';
+import { getProductsReducer, likeProductReducer, unlikeProductReducer } from './reducers/countReducer';
 
 const reducers = combineReducers(
     { 
         count: countReducer,
+        like: likeProductReducer,
+        unlike: unlikeProductReducer,
         products: getProductsReducer,
     }
 );
