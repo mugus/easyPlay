@@ -2,7 +2,8 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './app/navigation/AppNavigator';
 import AudioProvider from './app/context/AudioProvider';
-// import { Text, View, StyleSheet, Button } from 'react-native';
+import AudioListItem from './app/components/AudioListItem';
+import { Text, View, StyleSheet, Button } from 'react-native';
 // import { Audio } from 'expo-av';
 // import { Provider } from 'react-redux';
 
@@ -16,6 +17,16 @@ export default function App() {
       <AppNavigator />
     </NavigationContainer>
   </AudioProvider>
+
+  // return <View style={{paddingTop: 70}}>
+  //   <AudioListItem />
+  //   <AudioListItem />
+  //   <AudioListItem />
+  //   <AudioListItem />
+  //   <AudioListItem />
+  //   <AudioListItem />
+  //   <AudioListItem />
+  // </View>
   // const [sound, setSound] = React.useState();
 
 
