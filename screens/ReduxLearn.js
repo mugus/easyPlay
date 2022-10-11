@@ -59,7 +59,7 @@ export default function ReduxLearn() {
         <Text style={{fontSize: 18, fontWeight: '900'}}>Products</Text>
         <View style={{flex:1, flexDirection: 'row'}}>
         <ScrollView style={{ paddingLeft: '2.5%' }}>
-            {
+            {/* {
                 products.map((product, index) => (
                     <>
                         <View key={index} style={{flexDirection: 'column',padding:10, width: '100%', borderRadius: 10, backgroundColor: '#ffe' }}>
@@ -77,7 +77,7 @@ export default function ReduxLearn() {
                             </View>
                         </View>
                     </>
-            ))}
+            ))} */}
         </ScrollView>
 
         </View>

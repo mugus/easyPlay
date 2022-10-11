@@ -1,12 +1,21 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { Audio } from 'expo-av';
-import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import AppNavigator from './app/navigation/AppNavigator';
+import AudioProvider from './app/context/AudioProvider';
+// import { Text, View, StyleSheet, Button } from 'react-native';
+// import { Audio } from 'expo-av';
+// import { Provider } from 'react-redux';
 
-import { configureStore } from './redux/configureStore';
-import ReduxLearn from './screens/ReduxLearn';
+// import { configureStore } from './redux/configureStore';
+// import ReduxLearn from './screens/ReduxLearn';
+// import Home from './screens/Home';
 
 export default function App() {
+  return <AudioProvider>
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
+  </AudioProvider>
   // const [sound, setSound] = React.useState();
 
 
@@ -30,11 +39,11 @@ export default function App() {
   //     : undefined;
   // }, [sound]);
 
-  return (
-    <Provider store={configureStore}>
-      <ReduxLearn />
-    </Provider>
-  );
+  // return (
+    // <Provider store={configureStore}>
+    //   <Home />
+    // </Provider>
+  // );
 }
 
 
