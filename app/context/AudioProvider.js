@@ -3,7 +3,7 @@ import { Text, View, Alert } from 'react-native'
 import * as MediaLibrary from 'expo-media-library'
 import { getPermissionsAsync } from 'expo-av/build/Audio'
 import { DataProvider } from 'recyclerlistview'
-
+import { AsyncStorage } from '@react-native-community/async-storage';
 // {
 //     "canAskAgain": true,
 //     "expires": "never",
@@ -57,6 +57,24 @@ export default class AudioProvider extends Component {
         this.setState({ ...this.state, dataProvider: dataProvider.cloneWithRows([...audioFiles, ...media.assets]), audioFiles: [...audioFiles, ...media.assets]})
         // console.log('Media length: ', media.assets);
     }
+
+
+    loadPreviousAudio = async() => {
+        // TODO: we need to load audio form our async storage
+        let previousAudio = await AsyncStorage.getItem('previousAudio')
+        let currentAudio;
+        let currentAudioIndex;
+        
+        if(previousAudio === null){
+            currentAudio = this.state.audioFiles[0]
+            currentAudioIndex = 0
+        }else{
+            previousAudio = JSON.parse(previousAudio)
+            previousAudio = previousAudio.audio
+            currentAudioIndex = previousAudio.index
+        }
+    }
+
 
     getPermission = async () => {
         const permission = await MediaLibrary.getPermissionsAsync()

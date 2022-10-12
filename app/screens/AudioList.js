@@ -7,6 +7,7 @@ import Screen from '../components/Screen'
 import OptionModal from '../components/OptionModal'
 import { Audio } from 'expo-av';
 import {play, pause, resume, playNext} from '../misc/AudioController'
+import { storeAudioForNextOpen } from '../misc/helper'
 
 export default class AudioList extends Component {
   static contextType = AudioContext
@@ -83,7 +84,8 @@ export default class AudioList extends Component {
             currentAudioIndex: index
           }
         )
-        return playbackObj.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+        playbackObj.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
+        return storeAudioForNextOpen(audio, index)
 
       }
 
