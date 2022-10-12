@@ -73,6 +73,8 @@ export default class AudioProvider extends Component {
             previousAudio = previousAudio.audio
             currentAudioIndex = previousAudio.index
         }
+
+        this.setState({...this.state, currentAudio, currentAudioIndex})
     }
 
 
