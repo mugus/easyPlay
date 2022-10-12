@@ -27,6 +27,45 @@ export default class AudioList extends Component {
   })
 
 
+  onPlaybackStatusUpdate = async playbackStatus => {
+    if(playbackStatus.isLoaded && playbackStatus.isPlaying){
+      this.context.updateState(this.context, {
+          playbackPosition: playbackStatus.positionMillis,
+          playbackDuration: playbackStatus.durationMillis
+      })
+    }
+
+    if(playbackStatus.didJustFinish){
+      const nextAudioIndex = this.context.currentAudioIndex + 1
+      // If there is no next audio to play
+      if(nextAudioIndex >= this.context.totalAudioCount){
+        this.context.playbackObj.unloadAsync()
+        return this.context.updateState(
+          this.context, {
+            soundObj: null,
+            currentAudio: this.context.audioFiles[0],
+            isPlaying: false,
+            currentAudioIndex: [0],
+            playbackPosition: null,
+            playbackDuration: null
+          }
+        )
+      }
+
+      const audio = this.context.audioFiles[nextAudioIndex]
+      const status = await playNext(this.context.playbackObj, audio.uri)
+      this.context.updateState(
+        this.context, {
+          soundObj: status,
+          currentAudio: audio,
+          isPlaying: true,
+          currentAudioIndex: nextAudioIndex
+        }
+      )
+    }
+    // console.log(playbackStatus);
+  }
+
   handleAudioPress = async audio => {
     const {playbackObj, soundObj, currentAudio,updateState, audioFiles} = this.context
     // playing audio
@@ -35,7 +74,7 @@ export default class AudioList extends Component {
       const status = await play(playbackObj, audio.uri)
       const index = audioFiles.indexOf(audio)
         console.log('Play audio pressed', index);
-        return updateState(
+        updateState(
           this.context, {
             currentAudio: audio,
             playbackObj: playbackObj,
@@ -44,6 +83,7 @@ export default class AudioList extends Component {
             currentAudioIndex: index
           }
         )
+        return playbackObj.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate)
 
       }
 

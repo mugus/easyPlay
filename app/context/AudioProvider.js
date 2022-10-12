@@ -22,8 +22,11 @@ export default class AudioProvider extends Component {
             soundObj: null,
             currentAudio: {},
             isPlaying: false,
-            currentAudioIndex: null
+            currentAudioIndex: null,
+            playbackPosition: null,
+            playbackDuration: null
         }
+        this.totalAudioCount = 0
     }
 
     permissionAlert = () => {
@@ -50,6 +53,7 @@ export default class AudioProvider extends Component {
             mediaType: 'audio',
             first: media.totalCount
         })
+        this.totalAudioCount = media.totalCount;
         this.setState({ ...this.state, dataProvider: dataProvider.cloneWithRows([...audioFiles, ...media.assets]), audioFiles: [...audioFiles, ...media.assets]})
         // console.log('Media length: ', media.assets);
     }
@@ -94,7 +98,9 @@ export default class AudioProvider extends Component {
     }
   render() {
     const { audioFiles, dataProvider, permissionError, playbackObj, soundObj,
-         currentAudio, isPlaying, currentAudioIndex } = this.state
+         currentAudio, isPlaying, currentAudioIndex, playbackPosition, playbackDuration } = this.state
+        
+         
     if(permissionError) return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{ fontSize: 25, color: 'red', textAlign: 'center' }}>You don't have access to audio files</Text>
     </View>
@@ -107,6 +113,9 @@ export default class AudioProvider extends Component {
                     currentAudio,
                     isPlaying,
                     currentAudioIndex,
+                    totalAudioCount: this.totalAudioCount,
+                    playbackPosition, 
+                    playbackDuration,
                     updateState: this.updateState
                     }}>
         {this.props.children}
