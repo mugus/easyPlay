@@ -20,7 +20,9 @@ export default class AudioProvider extends Component {
             dataProvider: new DataProvider((r1, r2) => r1 !== r2),
             playbackObj: null,
             soundObj: null,
-            currentAudio: {}
+            currentAudio: {},
+            isPlaying: false,
+            currentAudioIndex: null
         }
     }
 
@@ -49,7 +51,7 @@ export default class AudioProvider extends Component {
             first: media.totalCount
         })
         this.setState({ ...this.state, dataProvider: dataProvider.cloneWithRows([...audioFiles, ...media.assets]), audioFiles: [...audioFiles, ...media.assets]})
-        console.log('Media length: ', media.assets);
+        // console.log('Media length: ', media.assets);
     }
 
     getPermission = async () => {
@@ -81,7 +83,7 @@ export default class AudioProvider extends Component {
                 this.getAudioFiles()
             }
         }
-        console.log(permission);
+        // console.log(permission);
     }
     componentDidMount(){
         this.getPermission()
@@ -91,7 +93,8 @@ export default class AudioProvider extends Component {
         this.setState({...prevState, ...newState})
     }
   render() {
-    const { audioFiles, dataProvider, permissionError, playbackObj, soundObj, currentAudio } = this.state
+    const { audioFiles, dataProvider, permissionError, playbackObj, soundObj,
+         currentAudio, isPlaying, currentAudioIndex } = this.state
     if(permissionError) return <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Text style={{ fontSize: 25, color: 'red', textAlign: 'center' }}>You don't have access to audio files</Text>
     </View>
@@ -102,6 +105,8 @@ export default class AudioProvider extends Component {
                     playbackObj,
                     soundObj,
                     currentAudio,
+                    isPlaying,
+                    currentAudioIndex,
                     updateState: this.updateState
                     }}>
         {this.props.children}

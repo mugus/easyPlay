@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback } from 'react-native'
 import { Entypo } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import color from '../misc/color'
-
 const getThumbnailText = (filename) => filename[0]
 
 const convertTime = minutes => {
@@ -29,18 +29,27 @@ const convertTime = minutes => {
 }
 
 
-// const onOptionPress = () => {
-
-// }
-export default function AudioListItem({title, duration, onOptionPress, onAudioPress}) {
+const renderPlayPauseIcon = isPlaying => {
+    if(isPlaying){
+        return <Feather name="pause" size={24} color={color.ACTIVE_FONT} />
+    }else{
+        return <Entypo name="controller-play" size={24} color={color.ACTIVE_FONT} />
+    }
+}
+export default function AudioListItem({title, duration, onOptionPress, onAudioPress, isPlaying, activeListItem}) {
   return (
     <>
         <View style={styles.container}>
             <TouchableWithoutFeedback onPress={onAudioPress}>
 
                 <View style={styles.leftContainer}>
-                    <View style={styles.thumbnail}>
-                        <Text style={styles.thumbnailText}>{getThumbnailText(title)}</Text>
+                    <View style={[styles.thumbnail, {backgroundColor: activeListItem ? color.ACTIVE_BG : color.FONT_LIGHT}]}>
+                        <Text style={styles.thumbnailText}>
+                            {
+                                activeListItem ? renderPlayPauseIcon(isPlaying) : getThumbnailText(title)
+
+                            }
+                        </Text>
                     </View>
 
                     <View style={styles.titleContainer}>
