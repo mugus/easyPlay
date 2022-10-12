@@ -1,22 +1,29 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Modal, StatusBar } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, Modal, StatusBar, TouchableWithoutFeedback } from 'react-native'
 import { Entypo } from '@expo/vector-icons';
 import color from '../misc/color'
 
 
-export default function OptionModal({visible}) {
+export default function OptionModal({visible,currentItem, onClose, onPlayPress, onPlaylistPress}) {
+    const {filename}= currentItem
     return(
         <>
             <StatusBar hidden />
             <Modal animationType='slide' transparent visible={visible}>
                 <View style={styles.modal}>
-                    <Text style={styles.title} numberOfLines={2}>Dynamic title of audio</Text>
+                    <Text style={styles.title} numberOfLines={2}>{filename}</Text>
                     <View style={styles.optionContainer}>
-                        <Text style={styles.option}>Play</Text>
-                        <Text style={styles.option}>Add to Playlist</Text>
+                        <TouchableWithoutFeedback onPress={onPlayPress}>
+                            <Text style={styles.option}>Play</Text>
+                        </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={onPlaylistPress}>
+                            <Text style={styles.option}>Add to Playlist</Text>
+                        </TouchableWithoutFeedback>
                     </View>
                 </View>
-                <View style={styles.modalBG} />
+                <TouchableWithoutFeedback onPress={onClose}>
+                    <View style={styles.modalBG} />
+                </TouchableWithoutFeedback>
             </Modal>
         </>
     )
